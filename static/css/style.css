@@ -1,5 +1,92 @@
 /* Styling for index page*/
 
+#nav-container {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+    padding-top: 18px;
+    padding-left: 10px; 
+    height: 70px;  
+}
+
+.header-wrapper {
+    height: 300px;
+}
+
+.header-wrapper h1{
+    padding-left: 500px;
+    font-size: 50px;
+    padding-top: 50px;
+}
+
+.header-wrapper p{
+    padding-left: 600px;
+    padding-top: 10px;
+    font-size: 24px;
+    
+}
+
+.panel-header {
+    font-size: 25px;
+    padding-left: 17px;
+}
+
+#filter {
+    border: black;
+    border-radius: 1em;
+    background-color: grey;
+    height: 100px;
+    width: 300px;
+    padding-top: 3px;
+
+}
+
+#filter label {
+    padding-top: 30px;
+    font-size: 22px;
+}
+
+#dropdown-menu {
+    color: black;
+    background-color: darkgray;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+#bacteria-stats-wrapper {
+    border: black;
+    border-radius: 2em;
+    background-color: red;
+    height: 310px;
+    width: 300px;
+    margin: 0px;
+}
+
+#bacteria-stats-wrapper h3 {
+    padding-left: 39px;
+    padding-top: 8px;
+    background-color: rosybrown;
+    height: 50px;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+#bacteria-stats-wrapper ul {
+    padding-left: 10px
+    
+}
+
+#bacteria-stats-wrapper ul div{
+    font-size: 24px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    
+}
+
+#graph1 {
+    padding-left: 70px;
+
+}
+
 .graph img {
     width: 1000px;
     height: 400px;

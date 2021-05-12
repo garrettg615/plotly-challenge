@@ -12,8 +12,8 @@
 <body>
    <div class='body-wrapper'>
        <nav class='navbar navbar-default'>
-           <div id="test">
-            this is my navbar
+           <div id="nav-container">
+            <a href="/">this is my navbar</a>
            </div>
 
        </nav>
@@ -32,15 +32,16 @@
                            <form>
                                 <div class="form-group">
                                     <ul id="filter">
-                                        <label for="bacteria">Choose Bacteria</label>
+                                        <label for="bacteria">Test Subject ID:  </label>
                                         <select name="bacteria" id="dropdown-menu">
-                                            <option value="something">something</option>
-                                            <option value="something">another one</option>
                                         </select>
                                     </ul>
                                 </div>
                            </form>
                            <div id="bacteria-stats-wrapper">
+                                <div class="demo-header">
+                                    <h3>Demographic Info</h3>
+                                </div>
                                 <ul>
                                     <div id="sub-id">id:</div>
                                     <div id="sub-ethn">ethnicity:</div>
@@ -54,25 +55,23 @@
                        </div>
                    </div>
                </div>
-               <div class="col-md-5">
+               <div class="col-md-5 container-fluid">
                    <div class="visual-wrapper1">
                        <div id="graph1"></div>
                    </div>
                </div>
                <div class="col-md-5">
                 <div class="visual-wrapper1">
-                    <img src="./static/images/hw01.png" alt="dummy image for initial design">
+                    
                 </div>
             </div>
            </div>
        </div>
        <div class="container2 container-fluid">
            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <div class="visual-wrapper1">
-                        <div class="graph">
-                        <img src="./static/images/hw01.png" alt="dummy image for initial design">
-                        </div>
+                        <div id="graph2"></div>
                     </div>
                 </div>
             </div>
