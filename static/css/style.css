@@ -4,9 +4,15 @@
     font-size: 20px;
     font-weight: bold;
     margin-left: 10px;
+    margin-bottom: 70px;
     padding-top: 18px;
     padding-left: 10px; 
-    height: 70px;  
+    height: 70px;
+}
+
+#nav-container img {
+    height: 100px;
+    width: auto;
 }
 
 .header-wrapper {
@@ -28,7 +34,7 @@
 
 .panel-header {
     font-size: 25px;
-    padding-left: 17px;
+    padding-left: 30px;
 }
 
 #filter {
@@ -36,7 +42,7 @@
     border-radius: 1em;
     background-color: grey;
     height: 100px;
-    width: 300px;
+    width: 320px;
     padding-top: 3px;
 
 }
@@ -58,12 +64,12 @@
     border-radius: 2em;
     background-color: red;
     height: 310px;
-    width: 300px;
-    margin: 0px;
+    width: 320px;
+    
 }
 
 #bacteria-stats-wrapper h3 {
-    padding-left: 39px;
+    padding-left: 50px;
     padding-top: 8px;
     background-color: rosybrown;
     height: 50px;
@@ -71,20 +77,29 @@
     border-top-right-radius: 1em;
 }
 
-#bacteria-stats-wrapper ul {
-    padding-left: 10px
-    
+table {
+    margin-left: 45px;
+    margin-top: 20px;
 }
 
-#bacteria-stats-wrapper ul div{
-    font-size: 24px;
+#bacteria-stats-wrapper #demo-body{
+    font-size: 20px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     
 }
 
-#graph1 {
+.visual-wrapper1 {
+    padding-top: 25px;
+}
+
+#bar {
     padding-left: 70px;
 
+}
+
+.container2 {
+    padding-left: 200px;
+    padding-top: 50px;
 }
 
 .graph img {
@@ -92,4 +107,13 @@
     height: 400px;
     margin-top: 50px;
     margin-left: 300px;
+}
+
+footer {
+    height: 100px;
+    text-align: right;
+    font-size: 22px;
+    padding-top: 57px;
+    padding-right: 5px;
+
 }
