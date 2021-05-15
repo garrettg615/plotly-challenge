@@ -14,17 +14,31 @@ function init() {
             x: top10samp,
             y: top10otu,
             orientation:'h',
-            text: otuLabels
+            text: otuLabels,
+            marker: {
+                color: otuIds,
+                width: 2
+            },
         }];
 
         layout = {
-            title: "Top 10 Bacteria in Naval",
+            title: {
+                text:"Top 10 Bacteria for ID: 940",
+                font: {size:30}
+            },
             xaxis: {
-                dtick: 50
+                title: {
+                    text:"Number of Sample per OTU",
+                    font: {size:20}
+                },
             },
             yaxis: {
                 autorange: 'reversed',
-                type: 'category'
+                type: 'category',
+                title: {
+                    text: "Top 10 OTU IDs",
+                    font: {size:20}
+                }
             },
         };
 
@@ -40,13 +54,26 @@ function init() {
         }]
 
         layout2 = {
-            title: "bubble chart"
+            title: {
+                text: "ID: 940 - All OTUs Present",
+                font: {size: 30}
+            },
+            xaxis: {
+                title: {
+                    text: "OTU ID#",
+                    font: {size: 20}
+                },
+            },
+            yaxis: {
+                
+            }
         }
 
         Plotly.newPlot("bar", data, layout);
         Plotly.newPlot("bubble", data2, layout2);
 
-        getsubjectinfo(940)
+        getsubjectinfo(940);
+        buildGauge(940);
         
     });
 }
@@ -74,7 +101,7 @@ dropDown.on('change', updatePlotly);
 function updatePlotly() {
     var dropValue = d3.select("#dropdown-menu").property('value')
     getsubjectinfo(parseInt(dropValue))
-
+    buildGauge(parseInt(dropValue));
 
     d3.json("static/data/samples.json").then((incomingData) => {
         var samp_df = incomingData.samples;
@@ -111,15 +138,31 @@ function updatePlotly() {
             x: x,
             y: y,
             orientation:'h',
-            text: z
+            text: z,
+            marker: {
+                color: y,
+                width: 2
+            },
         }];
 
         layout = {
-            title: "Top 10 Bacteria in Naval",
+            title: {
+                text: `Top 10 Bacteria for ID: ${dropValue}`,
+                font: {size: 30}
+            },
             xaxis: {
-                dtick: 50
+                autorange: true,
+                visible: true,
+                title: {
+                    text: "Number of Sample per OTU",
+                    font: {size: 20}
+                }
             },
             yaxis: {
+                title: {
+                    text: "Top 10 OTU IDs",
+                    font: {size: 20},
+                },
                 autorange: 'reversed',
                 type: 'category'
             },
@@ -139,7 +182,25 @@ function updatePlotly() {
         }];
 
         layout2 = {
-            title: "Bubble Graph"
+            title: {
+                text: `ID: ${dropValue} - All OTUs Present`,
+                font: {size: 30}
+            },
+            xaxis: {
+                title: {
+                    text: "OTU ID#",
+                    font: {size: 20}
+                },
+                autorange: true,
+                visible: true,
+                showgrid: false,
+                zeroline: false,
+                showline: false,
+            },
+            yaxis: {
+                autorange: true,
+                visible: true,
+            },
         }
 
         Plotly.newPlot("bar", data, layout);
@@ -193,6 +254,104 @@ function buildTable(subId, subEth, subGender, subAge, subLoc, subBbtype, subWfre
     }
 }
 
+function buildGauge(subject) {
+    d3.json("static/data/samples.json").then((incomingData) => {
+        var metaData = incomingData.metadata
+        var subWfreq;
+
+
+        metaData.forEach((row) => {
+            if (subject === row.id) {
+                subWfreq = row.wfreq;
+            };
+        });
+
+        var gaugeData = {
+              domain: { x: [0, 1], y: [0, 1] },
+              value: subWfreq,
+              title: { text: "Wash Frequency"},
+              type: "indicator",
+              mode: "gauge",
+                //   delta: { reference: 380 },
+              gauge: {
+                axis: { 
+                    range: [0, 10],
+                    tickmode: "linear",
+                    nticks: 9,
+                    ticklabelposition: "inside"
+                },
+
+                bar: {
+                    thickness: 0
+                },
+
+                steps: [
+                    {range: [0, 0.9999], color: "lavender", line: {color:"black", width: 0.5}},
+                    {range: [1, 1.9999], color: "lavender", line: {color:"black", width: 0.5}},
+                    {range: [2, 2.9999], color: "aliceblue", line: {color:"black", width: 0.5}},
+                    {range: [3, 3.9999], color: "aliceblue", line: {color:"black", width: 0.5}},
+                    {range: [4, 4.9999], color: "lightyellow", line: {color:"black", width: 0.5}},
+                    {range: [5, 5.9999], color: "lightyellow", line: {color:"black", width: 0.5}},
+                    {range: [6, 6.9999], color: "darkseagreen", line: {color:"black", width: 0.5}},
+                    {range: [7, 7.9999], color: "darkseagreen", line: {color:"black", width: 0.5}},
+                    {range: [8, 8.9999], color: "green", line: {color:"black", width: 0.5}},
+                    {range: [9, 9.9999], color: "green", line: {color:"black", width: 0.5}},
+                ],
+              }
+            };
+
+        var lineData = {
+            type: "scatter",
+            x: [0],
+            y: [0],
+            marker: {
+                size: 14,
+                color: "black"
+            },
+            showlegend: false,
+            hover: "skip"
+
+        };
+         
+        var data = [gaugeData, lineData]
+
+        var layout = { 
+            width: 600, 
+            height: 450, 
+            margin: { 
+                t: 0, 
+                b: 0 },
+            xaxis: {
+                zeroline:false, 
+                showticklabels:false,
+                showgrid: false, 
+                range: [-1, 1],
+                fixedrange: true
+            },
+            yaxis: {
+                zeroline:false, 
+                showticklabels:false,
+                showgrid: false, 
+                range: [-0.4, 1],
+                fixedrange: true
+            },
+            shapes: [{
+                type: "path",
+                path: "M 0 0 L -0.7 0.31 L Z",
+                line: {
+                    color: "black",
+                    width: 7
+                }
+
+            }]         
+        };
+
+
+        Plotly.newPlot('gauge', data, layout);
+        
+
+    });
+};
 
 init();
 
