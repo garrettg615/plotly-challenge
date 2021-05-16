@@ -310,7 +310,7 @@ function buildGauge(subject) {
             }];
 
 
-        Plotly.newPlot('gauge', gaugeData, layout);
+        Plotly.newPlot('gauge', gaugeData);
     });
 };
 
