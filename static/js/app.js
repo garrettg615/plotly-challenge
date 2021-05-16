@@ -9,6 +9,7 @@ function init() {
         var top10samp = sampVal.slice(0,10);
         var top10otu = otuIds.slice(0,10);
 
+        // display bar graph when page is loaded
         data = [{
             type:'bar',
             x: top10samp,
@@ -42,6 +43,7 @@ function init() {
             },
         };
 
+        // display bubble graph when page is loaded
         data2 = [{
             x: otuIds,
             y: sampVal,
@@ -72,6 +74,7 @@ function init() {
         Plotly.newPlot("bar", data, layout);
         Plotly.newPlot("bubble", data2, layout2);
 
+        // calls function to populate Demographic Table and gauge for subject 940
         getsubjectinfo(940);
         buildGauge(940);
         
@@ -101,6 +104,8 @@ dropDown.on('change', updatePlotly);
 function updatePlotly() {
     var dropValue = d3.select("#dropdown-menu").property('value')
     getsubjectinfo(parseInt(dropValue))
+    
+    //call the guage function to show wash frequency with dropDown value
     buildGauge(parseInt(dropValue));
 
     d3.json("static/data/samples.json").then((incomingData) => {
@@ -133,6 +138,7 @@ function updatePlotly() {
             }
         });
 
+        // Update Bar Graph
         data = [{
             type:'bar',
             x: x,
@@ -168,7 +174,7 @@ function updatePlotly() {
             },
         };
         
-        // Bubble Graph
+        // Update Bubble Graph
 
         data2 = [{
             x: x1,
@@ -203,12 +209,14 @@ function updatePlotly() {
             },
         }
 
+        // Create new plots with user input
         Plotly.newPlot("bar", data, layout);
         Plotly.newPlot("bubble", data2, layout2);
 
     });
 };
 
+// Function to get user data to build the table for Demographic Info
 function getsubjectinfo(subject) {
     
     d3.json("static/data/samples.json").then((incomingData) => {
@@ -237,6 +245,7 @@ function getsubjectinfo(subject) {
     });
 };
 
+// Function to build Table with Demo Info for each subject
 function buildTable(subId, subEth, subGender, subAge, subLoc, subBbtype, subWfreq) {
     var table = d3.select("table");
     var tbody = table.select("tbody");
@@ -254,6 +263,7 @@ function buildTable(subId, subEth, subGender, subAge, subLoc, subBbtype, subWfre
     }
 }
 
+// Function to grate gauge chart
 function buildGauge(subject) {
     d3.json("static/data/samples.json").then((incomingData) => {
         var metaData = incomingData.metadata
@@ -266,13 +276,12 @@ function buildGauge(subject) {
             };
         });
 
-        var gaugeData = {
+        var gaugeData = [{
               domain: { x: [0, 1], y: [0, 1] },
               value: subWfreq,
               title: { text: "Wash Frequency"},
               type: "indicator",
-              mode: "gauge",
-                //   delta: { reference: 380 },
+              mode: "gauge+number",
               gauge: {
                 axis: { 
                     range: [0, 10],
@@ -282,7 +291,7 @@ function buildGauge(subject) {
                 },
 
                 bar: {
-                    thickness: 0
+                    thickness: .5
                 },
 
                 steps: [
@@ -298,58 +307,10 @@ function buildGauge(subject) {
                     {range: [9, 9.9999], color: "green", line: {color:"black", width: 0.5}},
                 ],
               }
-            };
-
-        var lineData = {
-            type: "scatter",
-            x: [0],
-            y: [0],
-            marker: {
-                size: 14,
-                color: "black"
-            },
-            showlegend: false,
-            hover: "skip"
-
-        };
-         
-        var data = [gaugeData, lineData]
-
-        var layout = { 
-            width: 600, 
-            height: 450, 
-            margin: { 
-                t: 0, 
-                b: 0 },
-            xaxis: {
-                zeroline:false, 
-                showticklabels:false,
-                showgrid: false, 
-                range: [-1, 1],
-                fixedrange: true
-            },
-            yaxis: {
-                zeroline:false, 
-                showticklabels:false,
-                showgrid: false, 
-                range: [-0.4, 1],
-                fixedrange: true
-            },
-            shapes: [{
-                type: "path",
-                path: "M 0 0 L -0.7 0.31 L Z",
-                line: {
-                    color: "black",
-                    width: 7
-                }
-
-            }]         
-        };
+            }];
 
 
-        Plotly.newPlot('gauge', data, layout);
-        
-
+        Plotly.newPlot('gauge', gaugeData, layout);
     });
 };
 
